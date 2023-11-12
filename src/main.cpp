@@ -36,7 +36,7 @@ int main(int argc, char* args[])
         else {
             bool quit = false;
             SDL_Event e;
-            LSlider slider(150, 25, ((SCREEN_WIDTH / 2) - 150 / 2), ((SCREEN_HEIGHT / 2) - 25 / 2));
+            LSlider slider(70, 25, ((SCREEN_WIDTH / 2) - 150 / 2), ((SCREEN_HEIGHT / 2) - 25 / 2));
             while(!quit)
             {
                 SDL_Point mouse;

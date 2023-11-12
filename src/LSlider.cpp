@@ -12,8 +12,7 @@ extern LTexture gDotTexture;
 extern SDL_Renderer* gRenderer;
 extern TTF_Font* gFont;
 
-LSlider::LSlider(int width, int height, int posX, int posY)
-{
+LSlider::LSlider(int width, int height, int posX, int posY) {
     setSliderWidthAndHeight(width, height);
     setSliderPosition(posX, posY);
     mDot = new LDot();
@@ -23,10 +22,13 @@ LSlider::LSlider(int width, int height, int posX, int posY)
 }
 
 int LSlider::getVolume() const {
-    if(mSliderWidth < 100) 
+    if(mSliderWidth < 100) {
+        float res = ((mDot->getDotPosition().x - mSliderPosition.x) / (mSliderWidth * 1.0)) * 100.0;
+        return res;
+    }
     else if(mSliderWidth == 100) return mDot->getDotPosition().x - mSliderPosition.x;
     else if(mSliderWidth > 100) {
-        int coeff = mSliderWidth / 100;
+        float coeff = (mSliderWidth / 100.0);
         return (mDot->getDotPosition().x - mSliderPosition.x) / coeff;
     }
 }
@@ -40,8 +42,7 @@ void LSlider::renderVolume() {
     mVolumeTexture->render(mSliderPosition.x, mSliderPosition.y - (mVolumeTexture->getHeight()));
 }
 
-void LSlider::setSliderPosition( int x, int y )
-{
+void LSlider::setSliderPosition( int x, int y ) {
     mSliderPosition.x = x;
     mSliderPosition.y = y;
 }
@@ -51,8 +52,8 @@ void LSlider::setSliderWidthAndHeight(int width, int height) {
     mSliderHeight = height;
 }
 
-void LSlider::setDotPosition()
-{   int posX = mSliderPosition.x + (mSliderWidth/2);
+void LSlider::setDotPosition() {   
+    int posX = mSliderPosition.x + (mSliderWidth/2);
     int posY = mSliderPosition.y + (mSliderHeight/2) - (LDot::DOT_HEIGHT/2);
     mDot->setDotPosition(posX, posY);
 }
