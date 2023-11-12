@@ -1,0 +1,45 @@
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe build active file",
+            "command": "C:\\mingw64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always", 
+                "-g",
+                // build multiple C++ files
+                "${workspaceFolder}\\src\\*.cpp",
+				// include paths for header files
+				"-IC:\\mingwdevlib\\include",
+				// library paths for .a files
+				"-LC:\\mingwdevlib\\lib",
+                // compiler flags
+				"-w",
+                "-Wl,-subsystem,console",
+                // link to these libraries
+				"-lmingw32",
+                "-lSDL2main",
+                "-lSDL2",
+                "-lSDL2_image", 
+                "-lSDL2_ttf", 
+                "-lSDL2_mixer",
+                // output to...
+                "-o",
+                // name of the exe we create
+                "${workspaceFolder}\\main.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Debugger for SDL2"
+        }
+    ],
+    "version": "2.0.0"
+}
