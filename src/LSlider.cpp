@@ -23,13 +23,13 @@ LSlider::LSlider(int width, int height, int posX, int posY) {
 
 int LSlider::getVolume() const {
     if(mSliderWidth < 100) {
-        float res = ((mDot->getDotPosition().x - mSliderPosition.x) / (mSliderWidth * 1.0)) * 100.0;
+        float res = ((mDot->getDotPosition().x - mSliderPosition.x + LDot::DOT_WIDTH / 2) / (mSliderWidth * 1.0)) * 100.0;
         return res;
     }
-    else if(mSliderWidth == 100) return mDot->getDotPosition().x - mSliderPosition.x;
+    else if(mSliderWidth == 100) return mDot->getDotPosition().x - (mSliderPosition.x - LDot::DOT_WIDTH / 2);
     else if(mSliderWidth > 100) {
         float coeff = (mSliderWidth / 100.0);
-        return (mDot->getDotPosition().x - mSliderPosition.x) / coeff;
+        return (mDot->getDotPosition().x - mSliderPosition.x + LDot::DOT_WIDTH / 2) / coeff;
     }
 }
 
@@ -53,7 +53,7 @@ void LSlider::setSliderWidthAndHeight(int width, int height) {
 }
 
 void LSlider::setDotPosition() {   
-    int posX = mSliderPosition.x + (mSliderWidth/2);
+    int posX = mSliderPosition.x + (mSliderWidth/2) - (LDot::DOT_WIDTH/2);
     int posY = mSliderPosition.y + (mSliderHeight/2) - (LDot::DOT_HEIGHT/2);
     mDot->setDotPosition(posX, posY);
 }
@@ -119,12 +119,12 @@ void LSlider::handleMotion(SDL_Point mouse) {
     mDot->setDotPosition(mouse.x - LDot::DOT_WIDTH/2, mDot->getDotPosition().y);
 
     // left boudary
-    if(mDot->getDotPosition().x < mSliderPosition.x) {
-        mDot->setDotPosition(mSliderPosition.x, mDot->getDotPosition().y);
+    if(mDot->getDotPosition().x < mSliderPosition.x - LDot::DOT_WIDTH / 2) {
+        mDot->setDotPosition(mSliderPosition.x - LDot::DOT_WIDTH / 2, mDot->getDotPosition().y);
     }
     // right boundary
-    else if(mDot->getDotPosition().x > mSliderPosition.x + mSliderWidth) {
-        mDot->setDotPosition(mSliderPosition.x + mSliderWidth, mDot->getDotPosition().y);
+    else if(mDot->getDotPosition().x > mSliderPosition.x + mSliderWidth - LDot::DOT_WIDTH / 2) {
+        mDot->setDotPosition(mSliderPosition.x + mSliderWidth - LDot::DOT_WIDTH / 2, mDot->getDotPosition().y);
     }
 }
 
